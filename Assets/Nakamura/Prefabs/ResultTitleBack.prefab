@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3594743825912291596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1486689272186067796}
+  - component: {fileID: 108463023122008118}
+  m_Layer: 0
+  m_Name: ResultTitleBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1486689272186067796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594743825912291596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108463023122008118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594743825912291596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e136e76c6256bbc4a8c5160bdba1ce37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartLoadSceneAction:
+    m_Name: Start Load Scene
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: be766363-11b5-47e3-a7b5-c15c14335e0d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 100f0d48-b13f-4a1f-99c8-3f472adb7f3d
+      m_Path: <HID::QIXIONG Wire PS4 Controller>/button2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start Load Scene
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 954f0ddc-7ce9-4f47-aa61-fa225d3357c8
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Start Load Scene
+      m_Flags: 0
+    m_Flags: 0
+  sceneName: TitleSceneHamasakiKari
