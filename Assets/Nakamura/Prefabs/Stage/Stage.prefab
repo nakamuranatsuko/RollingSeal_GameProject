@@ -3924,7 +3924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dc7cffa0690a84b8e4e1a3b9c5a908, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: AfterGoal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4383,7 +4383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dc7cffa0690a84b8e4e1a3b9c5a908, type: 3}
       propertyPath: m_TagString
-      value: Goal
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

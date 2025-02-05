@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     //ゴールしたかどうか
     public bool IsGoal;
     public static bool IsResultGoal;
+    public static bool IsAftertGoal;
     public int goalNum;
     [SerializeField, Scene, Label("リザルトシーン")]
     private string resultSceneName;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         BgmManager.Instance.PlayBGM(2, 0.15f);
 
         IsResultGoal = false;
+        IsAftertGoal = false;
         IsResultFell = false;
         IsResultOne = false;
 
@@ -86,10 +88,15 @@ public class GameManager : MonoBehaviour
         if (goalNum == 2)
         {
             goalNum = 0;
-            IsResultGoal = true;
+            IsAftertGoal = true;
             //SE再生
             SeManager.Instance.PlaySE(7);
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        }
+        if(IsResultGoal == true && IsAftertGoal == true)
+        {
+            IsAftertGoal = false;
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
             await FadeManager.Inctance.FadeOut();
             await SceneManager.LoadSceneAsync(resultSceneName);
         }

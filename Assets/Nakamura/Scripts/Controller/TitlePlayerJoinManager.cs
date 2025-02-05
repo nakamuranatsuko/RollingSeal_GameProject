@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Text;
 
 public enum CharacterType
 {
@@ -35,7 +36,6 @@ public class TitlePlayerJoinManager : MonoBehaviour
 
     // プレイヤーがゲームにJoinするためのInputAction
     [SerializeField] private InputAction playerJoinInputAction = default;
-    //[SerializeField] private InputAction StartLoadSceneAction = default;
 
     // 最大参加人数
     [SerializeField, Label("最大プレイヤー数")] private int maxPlayerCount = default;
@@ -56,14 +56,14 @@ public class TitlePlayerJoinManager : MonoBehaviour
     [SerializeField, Label("フェイドイメージ")]
     private GameObject fadeImage;
 
-    //[SerializeField, Label("スタートボタン〇")]
-    //private GameObject maruStart;
-    //[SerializeField, Label("スタートボタン△")]
-    //private GameObject sankakuStart;
-
     [SerializeField, Label("キーボード対応スタート用")] private InputAction keyboardStartJoinInputAction = default;
     //キーボード対応用フラグ
     public static bool IsKeyboard = false;
+
+    //private StringBuilder Builder = new StringBuilder();
+    //private List<int> deviceID = new List<int>();
+    //private int isFirstDevice;
+    //public static List<CharacterType> PlayerInfosCharacterTypeFirst = new List<CharacterType>();
 
     private void Awake()
     {
@@ -75,8 +75,6 @@ public class TitlePlayerJoinManager : MonoBehaviour
         playerJoinInputAction.performed += OnJoin;
         keyboardStartJoinInputAction.Enable();
         keyboardStartJoinInputAction.performed += OnKeyboardStart;
-        //StartLoadSceneAction.Enable();
-        //StartLoadSceneAction.performed += OnStartLoadScene;
         //初期化
         PlayerInfosDevice.Clear();
         PlayerInfosCharacterType.Clear();
@@ -86,18 +84,46 @@ public class TitlePlayerJoinManager : MonoBehaviour
 
     private void Start()
     {
-        //オブジェクトを削除しない
-        //DontDestroyOnLoad(this.gameObject);
         //BGM再生
         BgmManager.Instance.PlayBGM(1,0.15f);
-
-        //maruStart.gameObject.SetActive(true);
-        //sankakuStart.gameObject.SetActive(false);
     }
 
-    private void OnDestroy()
+    void Update()
     {
-        //playerJoinInputAction.Dispose();
+        // Gamepad.allでデバイスIDで判別できる
+        //接続している間、Scene内を移動してもデバイスIDは変わらない
+        //for (int i = 0; i < Gamepad.all.Count; i++)
+        //{
+        //    var gamepad = Gamepad.all[i];
+
+        //    Builder.Clear();
+        //    Builder.AppendLine($"deviceId:{gamepad.deviceId}");
+        //    deviceID[i] = gamepad.deviceId;
+
+        //    //ボタンを押したら
+        //    if (gamepad.aButton.isPressed && isFirstDevice < Gamepad.all.Count)
+        //    {
+        //        if (isFirstDevice < Gamepad.all.Count)
+        //        {
+        //            isFirstDevice++;
+
+        //            if (i == 0)
+        //            {
+        //                characterType = CharacterType.Character1;
+        //            }
+        //            if (i == 1)
+        //            {
+        //                characterType = CharacterType.Character2;
+        //            }
+
+        //            PlayerInfosCharacterTypeFirst.Add(characterType);
+        //        }
+        //        else
+        //        {
+        //            PlayerInfosCharacterType.Add(characterType);
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -175,20 +201,4 @@ public class TitlePlayerJoinManager : MonoBehaviour
         await FadeManager.Inctance.FadeOut();
         SceneManager.LoadScene(sceneName);
     }
-
-    /// <summary>
-    /// スタートボタンが押されたしたときに呼ばれる処理
-    /// </summary>
-    /// <param name="context"></param>
-    //private async void OnStartLoadScene(InputAction.CallbackContext context)
-    //{
-    //    if (currentPlayerCount >= maxPlayerCount)
-    //    {
-    //        //SE再生
-    //        SeManager.Instance.PlaySE(1);
-    //        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-    //        //遷移
-    //        SceneManager.LoadScene(sceneName);
-    //    }
-    //}
 }

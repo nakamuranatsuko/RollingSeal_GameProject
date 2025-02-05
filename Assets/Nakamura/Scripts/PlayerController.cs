@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     private string goldFishTag;
     [SerializeField, Tag, Label("氷用タグ")]
     private string iceTag;
+    [SerializeField, Tag, Label("ゴール後アニメーション用タグ")]
+    private string afterGoalTag;
+    //一回だけ許可する用
+    private bool isFirstAfterGoal = false;
     //ダッシュ、超ダッシュ状態制限時間用
     private float fishTime;
     private bool isfishTime;
@@ -54,10 +58,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Foldout("エフェクト"), Label("満腹ゲージ最大の時")]
     private ParticleSystem manpukuEff;
 
-    //[SerializeField, Label("画面外に出た時の矢印")]
-    //private GameObject far;
-
-
     void Start()
     {
         playerRB = GetComponent<Rigidbody>();
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         this.GetComponent<SphereCollider>().isTrigger = false;
         fishTime = 0;
         isfishTime = false;
+        isFirstAfterGoal = false;
 
         //自身のアニメーターを入れる
         playerAnimator = this.GetComponent<Animator>();
@@ -94,7 +95,6 @@ public class PlayerController : MonoBehaviour
         Vector3 player1Pos = player1.transform.position;
         //player0とplayer1の距離を取得
         float dis = Vector3.Distance(player0Pos, player1Pos);
-        //Debug.Log(dis);
         //離れすぎたら速度が遅くなる
         if(dis >= 10) speed = 1;
         //満腹ゲージが最大になったら速度を落とす
@@ -129,23 +129,6 @@ public class PlayerController : MonoBehaviour
             }
             //最終的な速度を物理挙動に反映
             playerRB.velocity = playerVelocity;
-
-            //移動していたらエフェクト再生
-            //if (playerRB.velocity.magnitude > 3 && isJump == false)
-            //{
-            //    moveEff.Play();
-            //    Debug.Log(playerRB.velocity.magnitude);
-
-            //}
-            //else if (isJump == true)
-            //{
-            //    moveEff.Stop();
-            //}
-            //現状ジャンプしたときのみストップしない
-            //else if (playerRB.velocity.magnitude <= 3)
-            //{
-            //    moveEff.Stop();
-            //}
         }
         else
         {
@@ -179,36 +162,6 @@ public class PlayerController : MonoBehaviour
             fishTime = 0;
             isfishTime = false;
         }
-
-        ////ガメラ外にでたら
-        //if (!this.GetComponent<Renderer>().isVisible)
-        //{
-        //    //if (countDownCanvas.activeSelf) return;
-        //    Debug.Log("画面外");
-        //    far.SetActive(true);
-        //}
-        //else far.gameObject.SetActive(false);
-
-        //if(far.activeSelf)
-        //{
-        //    ////矢印をプレイヤーに追従させる
-        //    //far.transform.localPosition = new Vector3(this.gameObject.transform.position.x * 110, -450, 0);
-        //    //if (this.gameObject.transform.position.x < -8)
-        //    //{
-        //    //    far.transform.localPosition = new Vector3(-910, -450, 0);
-        //    //    Debug.Log("a");
-        //    //}
-        //    //if (this.gameObject.transform.position.x > 8) far.transform.localPosition = new Vector3(910, -450, 0);
-
-        //    //矢印をプレイヤーに追従させる
-        //    far.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, 6, 0);
-        //    if (this.gameObject.transform.position.x < -8)
-        //    {
-        //        far.gameObject.transform.position = new Vector3(-3.5f, 6, 0);
-        //        Debug.Log("a");
-        //    }
-        //    if (this.gameObject.transform.position.x > 8) far.gameObject.transform.position = new Vector3(3.5f, 6, 0);
-        //}
     }
 
     /// <summary>
@@ -311,6 +264,13 @@ public class PlayerController : MonoBehaviour
             SeManager.Instance.PlaySE(6);
             //氷を壊す(非表示)
             collision.gameObject.SetActive(false);
+        }
+
+        //ゴール後の特定の地面に触れたら
+        if(collision.gameObject.CompareTag(afterGoalTag) && isFirstAfterGoal == false)
+        {
+            isFirstAfterGoal = true;
+            GameManager.IsResultGoal = true;
         }
     }
 

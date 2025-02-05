@@ -3,12 +3,17 @@ guid: 55684dee6f883424999b5bf3d2c85030
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MT_Azarashi_shiro_col
+    second: {fileID: 2100000, guid: 15200cb3890523f468c314833e432d59, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
